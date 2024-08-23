@@ -491,7 +491,7 @@ require('lazy').setup({
       local servers = {
         -- clangd = {},
         -- gopls = {},
-        -- pyright = {},
+        pyright = {},
         -- rust_analyzer = {},
         -- ... etc. See `:help lspconfig-all` for a list of all the pre-configured LSPs
         --
@@ -531,10 +531,14 @@ require('lazy').setup({
       local ensure_installed = vim.tbl_keys(servers or {})
       vim.list_extend(ensure_installed, {
         'stylua', -- Used to format Lua code
+        'phpcbf', -- Used to format php code
         'typescript-language-server', -- typescript
         'css-lsp', -- css
         'intelephense', -- php
+        'pyright', -- python
+        'black', -- python formatter
         'elixir-ls', -- elixir
+        'prettier', -- formatting for most of the stuff
       })
       require('mason-tool-installer').setup { ensure_installed = ensure_installed }
 
@@ -580,36 +584,47 @@ require('lazy').setup({
           async = false,
         }
       end,
-
+      log_level = vim.log.levels.DEBUG,
       formatters = {
-        -- standard = 'Drupal',
-        -- standard = 'WordPress'
+        -- TODOS:
+        -- implement switching mechanism between Drupal and WordPress
+        phpcbf = function(bufnr)
+          -- set the appropriate path based on the OS
+          local formatter_path = '/home/kurund/.config/composer/vendor/bin/phpcbf'
+          if vim.loop.os_uname().sysname == 'Darwin' then
+            formatter_path = '/Users/kurund/.config/composer/vendor/bin/phpcbf'
+          end
 
-        phpcbf = {
-          command = '/home/kurund/.config/composer/vendor/bin/phpcbf',
-          args = { '--standard=Drupal' },
-          stdin = true,
-        },
+          -- set coding standard
+          local standard = 'Drupal'
+          -- standard = 'WordPress'
+
+          return {
+            command = formatter_path,
+            args = { '--standard=' .. standard },
+            stdin = true,
+          }
+        end,
       },
 
       formatters_by_ft = {
         lua = { 'stylua' },
         -- Conform can also run multiple formatters sequentially
-        python = { 'isort', 'black' },
+        python = { 'black' },
         --
         -- You can use 'stop_after_first' to run the first available formatter from the list
-        javascript = { 'prettierd', 'prettier', stop_after_first = true },
-        javascriptreact = { 'prettierd', 'prettier', stop_after_first = true },
-        typescript = { 'prettierd', 'prettier', stop_after_first = true },
-        typescriptreact = { 'prettierd', 'prettier', stop_after_first = true },
+        javascript = { 'prettier', stop_after_first = true },
+        javascriptreact = { 'prettier', stop_after_first = true },
+        typescript = { 'prettier', stop_after_first = true },
+        typescriptreact = { 'prettier', stop_after_first = true },
         php = { 'phpcbf' },
-        css = { 'prettierd', 'prettier', stop_after_first = true },
-        scss = { 'prettierd', 'prettier', stop_after_first = true },
-        json = { 'prettierd', 'prettier', stop_after_first = true },
-        jsonc = { 'prettierd', 'prettier', stop_after_first = true },
-        yaml = { 'prettierd', 'prettier', stop_after_first = true },
-        sh = { 'prettierd', 'prettier', stop_after_first = true },
-        markdown = { 'prettierd', 'prettier', stop_after_first = true },
+        css = { 'prettier', stop_after_first = true },
+        scss = { 'prettier', stop_after_first = true },
+        json = { 'prettier', stop_after_first = true },
+        jsonc = { 'prettier', stop_after_first = true },
+        yaml = { 'prettier', stop_after_first = true },
+        sh = { 'prettier', stop_after_first = true },
+        markdown = { 'prettier', stop_after_first = true },
       },
     },
   },
