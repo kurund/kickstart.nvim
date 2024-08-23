@@ -586,8 +586,9 @@ require('lazy').setup({
       end,
       -- log_level = vim.log.levels.DEBUG,
       formatters = {
-        -- TODOS:
-        -- implement switching mechanism between Drupal and WordPress
+        -- TODO:
+        -- Implement shortcut for switching mechanism between Drupal and WordPress
+        -- Disable and enable formatting
         phpcbf = function()
           -- set the appropriate path based on the OS
           local formatter_path = '/home/kurund/.config/composer/vendor/bin/phpcbf'
