@@ -584,7 +584,7 @@ require('lazy').setup({
           async = false,
         }
       end,
-      log_level = vim.log.levels.DEBUG,
+      -- log_level = vim.log.levels.DEBUG,
       formatters = {
         -- TODOS:
         -- implement switching mechanism between Drupal and WordPress
@@ -595,6 +595,7 @@ require('lazy').setup({
             formatter_path = '/Users/kurund/.config/composer/vendor/bin/phpcbf'
           end
 
+          -- these are specific coding standard for CiviCRM (Drupal) and WordPress
           -- set coding standard
           local standard = 'Drupal'
           -- standard = 'WordPress'
