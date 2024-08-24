@@ -1,11 +1,9 @@
 ## Introduction
 
-This is my nvim configuration based on the kickstart.vim
-I have later modified and added stuff as per my needs.
+This is my current nvim configuration which started with kickstart.vim and then it was modified as per my preference.
 
 ## TODOS
 
-- [ ] add keyboard shortcut to disable auto formatting
-- [ ] ability to switch formatting standard
+- [ ] ability to switch formatting standard for php
 - [ ] configure debugging for php
 - [ ] review gitsigns
