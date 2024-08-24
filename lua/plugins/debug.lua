@@ -2,10 +2,6 @@
 --
 -- Shows how to use the DAP plugin to debug your code.
 --
--- Primarily focused on configuring the debugger for Go, but can
--- be extended to other languages as well. That's why it's called
--- kickstart.nvim and not kitchen-sink.nvim ;)
-
 return {
   -- NOTE: Yes, you can install new plugins here!
   'mfussenegger/nvim-dap',
@@ -22,7 +18,6 @@ return {
     'jay-babu/mason-nvim-dap.nvim',
 
     -- Add your own debuggers here
-    -- 'leoluz/nvim-dap-go',
   },
   keys = function(_, keys)
     local dap = require 'dap'
@@ -57,13 +52,70 @@ return {
 
       -- You can provide additional configuration to the handlers,
       -- see mason-nvim-dap README for more information
-      handlers = {},
+      handlers = {
+        php = function(config)
+          -- TODO: Need to set the cms path for debugger
+
+          -- local sourceDirectory = os.getenv 'HOME' .. '/src/'
+          -- local cmsPath = cwd() .. '/src'
+          --
+          -- --- Check if a file or directory exists in this path
+          -- local function exists(file)
+          --   local ok, err, code = os.rename(file, file)
+          --   if not ok then
+          --     if code == 13 then
+          --       -- Permission denied, but it exists
+          --       return true
+          --     end
+          --   end
+          --   return ok, err
+          -- end
+          --
+          -- --- Check if a directory exists in this path
+          -- local function isdir(path)
+          --   return exists(path .. '/')
+          -- end
+          --
+          -- -- check if it's WordPress or Drupal instance and set correct path
+          -- if isdir(cmsPath .. '/wordpress') then
+          --   cmsPath = cmsPath .. '/wordpress'
+          -- elseif isdir(cmsPath .. '/drupal') then
+          --   cmsPath = cmsPath .. '/drupal'
+          -- end
+
+          config.configurations = {
+            {
+              type = 'php',
+              request = 'launch',
+              name = 'Listen for XDebug',
+              port = 9003,
+              log = false,
+              pathMappings = {
+                -- ['/var/www/html/'] = cmsPath,
+              },
+              xdebugSettings = {
+                max_children = 500,
+              },
+            },
+          }
+
+          -- eg content for lua/plugins/dap-paths-local
+          -- local dap = require "dap"
+          -- dap.configurations.php[1].pathMappings = {
+          --   ['/Users/kurund/buildkit/build/wpmaster/web/'] = '/Users/kurund/buildkit/build/wpmaster/web/'
+          -- }
+
+          pcall(require, 'dap-paths-local')
+
+          require('mason-nvim-dap').default_setup(config) -- don't forget this!
+        end,
+      },
 
       -- You'll need to check that you have the required things installed
       -- online, please don't ask me how to install them :)
       ensure_installed = {
         -- Update this to ensure that you have the debuggers for the langs you want
-        -- 'delve',
+        'php',
       },
     }
 
@@ -92,14 +144,5 @@ return {
     dap.listeners.after.event_initialized['dapui_config'] = dapui.open
     dap.listeners.before.event_terminated['dapui_config'] = dapui.close
     dap.listeners.before.event_exited['dapui_config'] = dapui.close
-
-    -- Install golang specific config
-    -- require('dap-go').setup {
-    --   delve = {
-    --     -- On Windows delve must be run attached or it crashes.
-    --     -- See https://github.com/leoluz/nvim-dap-go/blob/main/README.md#configuring
-    --     detached = vim.fn.has 'win32' == 0,
-    --   },
-    -- }
   end,
 }
