@@ -210,7 +210,6 @@ return {
       local ensure_installed = vim.tbl_keys(servers or {})
       vim.list_extend(ensure_installed, {
         'stylua', -- Used to format Lua code
-        'phpcbf', -- Used to format php code
         'typescript-language-server', -- typescript
         'css-lsp', -- css
         'intelephense', -- php
@@ -270,9 +269,6 @@ return {
       end,
       -- log_level = vim.log.levels.DEBUG,
       formatters = {
-        -- TODO:
-        -- Implement shortcut for switching mechanism between Drupal and WordPress
-        -- Disable and enable formatting
         phpcbf = function()
           -- set the appropriate path based on the OS
           local formatter_path = '/home/kurund/.config/composer/vendor/bin/phpcbf'
@@ -280,14 +276,9 @@ return {
             formatter_path = '/Users/kurund/.config/composer/vendor/bin/phpcbf'
           end
 
-          -- these are specific coding standard for CiviCRM (Drupal) and WordPress
-          -- set coding standard
-          local standard = 'Drupal'
-          -- standard = 'WordPress'
-
           return {
             command = formatter_path,
-            args = { '--standard=' .. standard },
+            args = { '--standard=' .. vim.g.php_standard },
             stdin = true,
           }
         end,

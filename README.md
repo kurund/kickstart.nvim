@@ -4,6 +4,5 @@ This is my current nvim configuration which started with kickstart.vim and then 
 
 ## TODOS
 
-- [ ] ability to switch formatting standard for php
 - [ ] configure debugging for php
 - [ ] review gitsigns

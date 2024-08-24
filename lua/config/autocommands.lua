@@ -36,3 +36,21 @@ vim.api.nvim_create_user_command('FormatEnable', function()
 end, {
   desc = 'Re-enable autoformat-on-save',
 })
+
+-- Set php coding standard: CiviCRM for PHP
+-- refer: https://github.com/civicrm/coder
+vim.api.nvim_create_user_command('CiviCRMStandard', function()
+  vim.g.php_standard = 'Drupal'
+  print 'CiviCRM coding standard is set.'
+end, {
+  desc = 'Set CiviCRM coding standard',
+})
+
+-- Set php coding standard: WordPress for PHP
+-- refer: https://github.com/WordPress/WordPress-Coding-Standards
+vim.api.nvim_create_user_command('WordPressStandard', function()
+  vim.g.php_standard = 'WordPress'
+  print 'WordPress coding standard is set.'
+end, {
+  desc = 'Set WordPress coding standard',
+})
