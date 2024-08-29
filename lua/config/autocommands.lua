@@ -22,7 +22,7 @@ vim.api.nvim_create_user_command('FormatDisable', function(args)
     -- FormatDisable just affects this buffer.
     vim.b.disable_autoformat = true
   end
-  print 'Format on save is disabled.'
+  vim.notify 'Format on save is disabled.'
 end, {
   desc = 'Disable autoformat-on-save',
   bang = true,
@@ -32,7 +32,7 @@ end, {
 vim.api.nvim_create_user_command('FormatEnable', function()
   vim.b.disable_autoformat = false
   vim.g.disable_autoformat = false
-  print 'Format on save is enabled.'
+  vim.notify 'Format on save is enabled.'
 end, {
   desc = 'Re-enable autoformat-on-save',
 })
@@ -41,7 +41,7 @@ end, {
 -- refer: https://github.com/civicrm/coder
 vim.api.nvim_create_user_command('CiviCRMStandard', function()
   vim.g.php_standard = 'Drupal'
-  print 'CiviCRM coding standard is set.'
+  vim.notify 'CiviCRM coding standard is set.'
 end, {
   desc = 'Set CiviCRM coding standard',
 })
@@ -50,7 +50,7 @@ end, {
 -- refer: https://github.com/WordPress/WordPress-Coding-Standards
 vim.api.nvim_create_user_command('WordPressStandard', function()
   vim.g.php_standard = 'WordPress'
-  print 'WordPress coding standard is set.'
+  vim.notify 'WordPress coding standard is set.'
 end, {
   desc = 'Set WordPress coding standard',
 })
