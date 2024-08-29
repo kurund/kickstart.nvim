@@ -8,6 +8,15 @@ return {
     'numToStr/Comment.nvim',
     opts = {},
   },
+
+  -- better notification
+  {
+    'rcarriga/nvim-notify',
+    config = function()
+      vim.notify = require 'notify'
+    end,
+  },
+
   { -- Collection of various small independent plugins/modules
     'echasnovski/mini.nvim',
     config = function()

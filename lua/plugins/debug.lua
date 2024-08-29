@@ -54,34 +54,49 @@ return {
       -- see mason-nvim-dap README for more information
       handlers = {
         php = function(config)
-          -- TODO: Need to set the cms path for debugger
+          --- Check if a file or directory exists in this path
+          local function exists(file)
+            local ok, err, code = os.rename(file, file)
+            if not ok then
+              if code == 13 then
+                -- Permission denied, but it exists
+                return true
+              end
+            end
+            return ok, err
+          end
 
-          -- local sourceDirectory = os.getenv 'HOME' .. '/src/'
-          -- local cmsPath = cwd() .. '/src'
-          --
-          -- --- Check if a file or directory exists in this path
-          -- local function exists(file)
-          --   local ok, err, code = os.rename(file, file)
-          --   if not ok then
-          --     if code == 13 then
-          --       -- Permission denied, but it exists
-          --       return true
-          --     end
-          --   end
-          --   return ok, err
-          -- end
-          --
-          -- --- Check if a directory exists in this path
-          -- local function isdir(path)
-          --   return exists(path .. '/')
-          -- end
-          --
-          -- -- check if it's WordPress or Drupal instance and set correct path
-          -- if isdir(cmsPath .. '/wordpress') then
-          --   cmsPath = cmsPath .. '/wordpress'
-          -- elseif isdir(cmsPath .. '/drupal') then
-          --   cmsPath = cmsPath .. '/drupal'
-          -- end
+          --- Check if a directory exists in this path
+          local function isdir(path)
+            return exists(path .. '/')
+          end
+
+          -- lets set dynamic path dynamically for debugging
+          local cmsPath = vim.fn.getcwd() .. '/src'
+          -- check if it's WordPress or Drupal instance and set correct path
+          if isdir(cmsPath .. '/wordpress') then
+            cmsPath = cmsPath .. '/wordpress'
+          elseif isdir(cmsPath .. '/drupal') then
+            cmsPath = cmsPath .. '/drupal'
+          else
+            cmsPath = ''
+          end
+
+          -- vim.notify(cmsPath, 'error')
+          local pathMappings = {}
+          if cmsPath ~= '' then
+            pathMappings = {
+              ['/var/www/html/'] = cmsPath,
+            }
+          else
+            -- lets assume we are using buildkit intance for now.
+            pathMappings = {
+              -- civicrm-buildkit-docker
+              ['/buildkit/build/'] = '/home/kurund/src/civicrm-buildkit-docker/build/',
+              -- normal buildkit
+              [vim.fn.getcwd()] = vim.fn.getcwd(),
+            }
+          end
 
           config.configurations = {
             {
@@ -90,16 +105,15 @@ return {
               name = 'Listen for XDebug',
               port = 9003,
               log = false,
-              pathMappings = {
-                -- ['/var/www/html/'] = cmsPath,
-              },
+              pathMappings = pathMappings,
               xdebugSettings = {
                 max_children = 500,
               },
             },
           }
 
-          -- eg content for lua/plugins/dap-paths-local
+          -- incase of pathMappings override, you can create your own file
+          -- eg content for lua/plugins/dap-paths-local file
           -- local dap = require "dap"
           -- dap.configurations.php[1].pathMappings = {
           --   ['/Users/kurund/buildkit/build/wpmaster/web/'] = '/Users/kurund/buildkit/build/wpmaster/web/'
