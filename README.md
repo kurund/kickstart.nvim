@@ -4,7 +4,6 @@ This is my current nvim configuration which started with kickstart.vim and then 
 
 ## TODOS
 
-- [ ] review gitsigns
 - [ ] review fugitive
 - [ ] merge upstream changes
 - [ ] auto tags closing not working

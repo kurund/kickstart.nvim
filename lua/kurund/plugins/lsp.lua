@@ -209,14 +209,22 @@ return {
       -- for you, so that they are available from within Neovim.
       local ensure_installed = vim.tbl_keys(servers or {})
       vim.list_extend(ensure_installed, {
-        'stylua', -- Used to format Lua code
-        'typescript-language-server', -- typescript
-        'css-lsp', -- css
+        -- language servers
+        'lua_ls',
+        'ts_ls',
+        'html',
+        'cssls',
+        'svelte',
+        'graphql',
+        'emmet_ls',
         'intelephense', -- php
         'pyright', -- python
-        'black', -- python formatter
-        'elixir-ls', -- elixir
-        'prettier', -- formatting for most of the stuff
+        'elixirls', -- elixir
+        -- formatters
+        'prettier',
+        'stylua',
+        'isort',
+        'black',
       })
       require('mason-tool-installer').setup { ensure_installed = ensure_installed }
 
@@ -233,77 +241,6 @@ return {
         },
       }
     end,
-  },
-  { -- Autoformat
-    'stevearc/conform.nvim',
-    event = { 'BufWritePre' },
-    cmd = { 'ConformInfo' },
-    keys = {
-      {
-        '<leader>f',
-        function()
-          require('conform').format { async = true, lsp_fallback = true }
-        end,
-        mode = '',
-        desc = '[F]ormat buffer',
-      },
-    },
-    opts = {
-      notify_on_error = false,
-      format_on_save = function(bufnr)
-        -- return early if formatting is disabled
-        if vim.g.disable_autoformat or vim.b[bufnr].disable_autoformat then
-          print 'format_on_save is disabled'
-          return
-        end
-
-        -- Disable "format_on_save lsp_fallback" for languages that don't
-        -- have a well standardized coding style. You can add additional
-        -- languages here or re-enable it for the disabled ones.
-        local disable_filetypes = { c = true, cpp = true }
-        return {
-          timeout_ms = 10000,
-          lsp_fallback = not disable_filetypes[vim.bo[bufnr].filetype],
-          async = false,
-        }
-      end,
-      -- log_level = vim.log.levels.DEBUG,
-      formatters = {
-        phpcbf = function()
-          -- set the appropriate path based on the OS
-          local formatter_path = '/home/kurund/.config/composer/vendor/bin/phpcbf'
-          if vim.loop.os_uname().sysname == 'Darwin' then
-            formatter_path = '/Users/kurund/.config/composer/vendor/bin/phpcbf'
-          end
-
-          return {
-            command = formatter_path,
-            args = { '--standard=' .. vim.g.php_standard },
-            stdin = true,
-          }
-        end,
-      },
-
-      formatters_by_ft = {
-        lua = { 'stylua' },
-        -- Conform can also run multiple formatters sequentially
-        python = { 'black' },
-        --
-        -- You can use 'stop_after_first' to run the first available formatter from the list
-        javascript = { 'prettier', stop_after_first = true },
-        javascriptreact = { 'prettier', stop_after_first = true },
-        typescript = { 'prettier', stop_after_first = true },
-        typescriptreact = { 'prettier', stop_after_first = true },
-        php = { 'phpcbf' },
-        css = { 'prettier', stop_after_first = true },
-        scss = { 'prettier', stop_after_first = true },
-        json = { 'prettier', stop_after_first = true },
-        jsonc = { 'prettier', stop_after_first = true },
-        yaml = { 'prettier', stop_after_first = true },
-        sh = { 'prettier', stop_after_first = true },
-        markdown = { 'prettier', stop_after_first = true },
-      },
-    },
   },
   { -- Autocompletion
     'hrsh7th/nvim-cmp',
