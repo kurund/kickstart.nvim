@@ -1,3 +1,4 @@
+require 'config.options'
 require 'config.editor'
 require 'config.autocommands'
 require 'config.keymaps'
