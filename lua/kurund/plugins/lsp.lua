@@ -423,6 +423,9 @@ return {
   { -- Highlight, edit, and navigate code
     'nvim-treesitter/nvim-treesitter',
     build = ':TSUpdate',
+    dependencies = {
+      'windwp/nvim-ts-autotag',
+    },
     opts = {
       ensure_installed = {
         'bash',
@@ -438,8 +441,11 @@ return {
         'php',
         'elixir',
         'typescript',
+        'tsx',
         'javascript',
         'svelte',
+        'graphql',
+        'dockerfile',
         'python',
         'css',
         'json',
@@ -455,6 +461,10 @@ return {
         additional_vim_regex_highlighting = { 'ruby' },
       },
       indent = { enable = true, disable = { 'ruby' } },
+      -- enable autotagging (w/ nvim-ts-autotag plugin)
+      autotag = {
+        enable = true,
+      },
     },
     config = function(_, opts)
       -- [[ Configure Treesitter ]] See `:help nvim-treesitter`
