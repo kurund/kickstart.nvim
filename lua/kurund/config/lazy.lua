@@ -55,7 +55,7 @@ require('lazy').setup({
 
   -- NOTE:  Import plugins
   -- This will automatically import all plugins from plugins folder
-  { import = 'plugins' },
+  { import = 'kurund.plugins' },
 }, {
   ui = {
     -- If you are using a Nerd Font: set icons to an empty table which will use the

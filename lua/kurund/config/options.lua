@@ -64,3 +64,15 @@ vim.opt.cursorline = true
 
 -- Minimal number of screen lines to keep above and below the cursor.
 vim.opt.scrolloff = 10
+
+-- copy the indentation of current line to the next
+vim.opt.autoindent = true
+
+-- turn on termguicolors for colorschmes to work correctly.
+vim.opt.termguicolors = true
+
+-- if colorscheme supports dark then set dark as default
+vim.opt.background = 'dark'
+
+-- enable backspace
+vim.opt.backspace = 'indent,eol,start'
