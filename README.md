@@ -4,5 +4,4 @@ This is my current nvim configuration which started with kickstart.vim and then 
 
 ## TODOS
 
-- [ ] review fugitive
-- [ ] auto tags closing not working
+- [ ] evaluate fugitive

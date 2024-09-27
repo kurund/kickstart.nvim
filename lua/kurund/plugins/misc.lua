@@ -8,6 +8,13 @@ return {
     end,
   },
 
+  -- auto tag
+  {
+    'windwp/nvim-ts-autotag',
+    event = 'InsertEnter',
+    config = true,
+  },
+
   { -- Collection of various small independent plugins/modules
     'echasnovski/mini.nvim',
     config = function()
