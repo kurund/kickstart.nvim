@@ -65,8 +65,11 @@ vim.opt.cursorline = true
 -- Minimal number of screen lines to keep above and below the cursor.
 vim.opt.scrolloff = 10
 
--- copy the indentation of current line to the next
-vim.opt.autoindent = true
+-- tabs & indentation
+vim.opt.tabstop = 2 -- 2 spaces for tabs (prettier default)
+vim.opt.shiftwidth = 2 -- 2 spaces for indent width
+vim.opt.expandtab = true -- expand tab to spaces
+vim.opt.autoindent = true -- copy the indentation of current line to the next
 
 -- turn on termguicolors for colorschmes to work correctly.
 vim.opt.termguicolors = true
