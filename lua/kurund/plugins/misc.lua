@@ -15,6 +15,9 @@ return {
     config = true,
   },
 
+  -- buffer delete
+  { 'famiu/bufdelete.nvim' },
+
   { -- Collection of various small independent plugins/modules
     'echasnovski/mini.nvim',
     config = function()
