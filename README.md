@@ -9,4 +9,4 @@ This is my current nvim configuration which started with kickstart.vim and then 
 
 ## TODOS
 
-- [ ] Document the plugins used
+- [ ] Document the plugins
