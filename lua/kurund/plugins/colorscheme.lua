@@ -10,7 +10,7 @@ return {
       -- Load the colorscheme here.
       -- Like many other themes, this one has different styles, and you could load
       -- any other, such as 'tokyonight-storm', 'tokyonight-moon', or 'tokyonight-day'.
-      vim.cmd.colorscheme 'tokyonight-night'
+      -- vim.cmd.colorscheme 'tokyonight-night'
 
       -- You can configure highlights by doing something like:
       vim.cmd.hi 'Comment gui=none'
@@ -22,5 +22,46 @@ return {
         floats = 'transparent',
       },
     },
+  },
+
+  {
+    'gbprod/nord.nvim',
+    lazy = false,
+    priority = 1000,
+    config = function()
+      local settransparancy = function()
+        if vim.loop.os_uname().sysname == 'Darwin' then
+          return false
+        end
+        return true
+      end
+
+      require('nord').setup {
+        transparent = settransparancy(),
+      }
+      -- vim.cmd.colorscheme 'nord'
+    end,
+  },
+
+  {
+    'rose-pine/neovim',
+    priority = 1000,
+    name = 'rose-pine',
+    config = function()
+      local settransparancy = function()
+        if vim.loop.os_uname().sysname == 'Darwin' then
+          return false
+        end
+        return true
+      end
+
+      require('rose-pine').setup {
+        styles = {
+          bold = true,
+          italic = false,
+          transparent = settransparancy(),
+        },
+      }
+    end,
   },
 }

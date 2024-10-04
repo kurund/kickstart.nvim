@@ -13,6 +13,11 @@ vim.api.nvim_create_autocmd('TextYankPost', {
   end,
 })
 
+-- set default colorschemes
+vim.cmd.colorscheme 'tokyonight-night'
+-- vim.cmd.colorscheme 'nord'
+-- vim.cmd.colorscheme 'rose-pine'
+
 -- Disable formatting
 vim.api.nvim_create_user_command('FormatDisable', function(args)
   if args.bang then
