@@ -82,3 +82,6 @@ vim.opt.background = 'dark'
 
 -- enable backspace
 vim.opt.backspace = 'indent,eol,start'
+
+-- recommendation from auto-session plugin
+vim.opt.sessionoptions = 'blank,buffers,curdir,folds,help,tabpages,winsize,winpos,terminal,localoptions'

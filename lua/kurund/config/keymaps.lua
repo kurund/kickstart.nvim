@@ -63,7 +63,7 @@ keymap.set('v', '<', '<gv', opts)
 keymap.set('v', '>', '>gv', opts)
 
 -- Window management
-keymap.set('n', '<leader>v', '<C-w>v', opts) -- split window vertically
-keymap.set('n', '<leader>h', '<C-w>s', opts) -- split window horizontally
-keymap.set('n', '<leader>se', '<C-w>=', opts) -- make split windows equal width & height
-keymap.set('n', '<leader>xs', ':close<CR>', opts) -- close current split window
+keymap.set('n', 'sv', '<C-w>v', opts) -- split window vertically
+keymap.set('n', 'sh', '<C-w>s', opts) -- split window horizontally
+keymap.set('n', 'se', '<C-w>=', opts) -- make split windows equal width & height
+keymap.set('n', 'xs', ':close<CR>', opts) -- close current split window

@@ -28,7 +28,7 @@ end, {
   bang = true,
 })
 
--- Disable formatting
+-- Enable formatting
 vim.api.nvim_create_user_command('FormatEnable', function()
   vim.b.disable_autoformat = false
   vim.g.disable_autoformat = false
