@@ -23,6 +23,47 @@ keymap.set('n', '<C-l>', '<C-w><C-l>', { desc = 'Move focus to the right window'
 keymap.set('n', '<C-j>', '<C-w><C-j>', { desc = 'Move focus to the lower window' })
 keymap.set('n', '<C-k>', '<C-w><C-k>', { desc = 'Move focus to the upper window' })
 
--- Split window
-keymap.set('n', 'ss', ':split<Return>', opts)
-keymap.set('n', 'sv', ':vsplit<Return>', opts)
+-- save file
+keymap.set('n', '<C-s>', '<cmd> w <CR>', opts)
+
+-- quit file
+keymap.set('n', '<C-q>', '<cmd> q <CR>', opts)
+
+-- save file without auto-formatting
+keymap.set('n', '<leader>sn', '<cmd>noautocmd w <CR>', opts)
+
+-- delete single character without copying to register, so that paste does not use that
+keymap.set('n', 'x', '"_x', opts)
+
+-- Keep last yanked when pasting
+keymap.set('v', 'p', '"_dP', opts)
+
+-- Find and center
+keymap.set('n', 'n', 'nzzzv', opts)
+keymap.set('n', 'N', 'Nzzzv', opts)
+
+-- Vertical scroll and center
+keymap.set('n', '<C-d>', '<C-d>zz', opts)
+keymap.set('n', '<C-u>', '<C-u>zz', opts)
+
+-- Resize with arrows
+keymap.set('n', '<Up>', ':resize -2<CR>', opts)
+keymap.set('n', '<Down>', ':resize +2<CR>', opts)
+keymap.set('n', '<Left>', ':vertical resize -2<CR>', opts)
+keymap.set('n', '<Right>', ':vertical resize +2<CR>', opts)
+
+-- Buffers
+keymap.set('n', '<Tab>', ':bnext<CR>', opts)
+keymap.set('n', '<S-Tab>', ':bprevious<CR>', opts)
+keymap.set('n', '<leader>x', ':Bdelete!<CR>', opts) -- close buffer
+keymap.set('n', '<leader>b', '<cmd> enew <CR>', opts) -- new buffer
+
+-- Stay in indent mode
+keymap.set('v', '<', '<gv', opts)
+keymap.set('v', '>', '>gv', opts)
+
+-- Window management
+keymap.set('n', '<leader>v', '<C-w>v', opts) -- split window vertically
+keymap.set('n', '<leader>h', '<C-w>s', opts) -- split window horizontally
+keymap.set('n', '<leader>se', '<C-w>=', opts) -- make split windows equal width & height
+keymap.set('n', '<leader>xs', ':close<CR>', opts) -- close current split window

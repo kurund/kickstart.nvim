@@ -18,6 +18,9 @@ vim.opt.showmode = false
 -- Enable wrapping
 vim.opt.wrap = true
 
+-- line break, dont split words
+vim.opt.linebreak = true
+
 -- Sync clipboard between OS and Neovim.
 --  Schedule the setting after `UiEnter` because it can increase startup-time.
 --  Remove this option if you want your OS clipboard to remain independent.
